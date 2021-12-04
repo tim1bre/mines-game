@@ -7,20 +7,13 @@ function Square(props) {
     const [clicked, setClicked] = useState(false);
 
     const porpagateBomb = () => {
-        console.log(props.index);
+        // console.log(props.index);
         props.handleBomb(props.index);
     }
 
     const handleClick = () => {
-        if (props.bomb === true) {
-            console.log(props.index + ": bomb");
-            setText("x");
-            porpagateBomb(props.key);
-        } else {
-            console.log(props.index + ": no bomb");
-        }
         setClicked(true);
-        console.log(clicked);
+        setText(props.value);
     }
 
     
