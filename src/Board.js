@@ -15,8 +15,10 @@ function Board() {
         let minesCount = 0;
         while (minesCount < minesNumber) {
             let mineCoordinate = Math.floor(Math.random() * boardSize);
-            minesBoard[mineCoordinate]['mine'] = true;
-            minesCount++;
+            if (minesBoard[mineCoordinate]['mine'] === false) {
+                minesBoard[mineCoordinate]['mine'] = true;
+                minesCount++;
+            }
         }
     }
 
