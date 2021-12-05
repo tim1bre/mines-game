@@ -3,8 +3,6 @@ import Grid from '@mui/material/Grid';
 
 function Board() {
 
-    
-
     const createBoard = (boardSize) => {
         let minesBoard = [];
         for (let i = 0; i < boardSize; i++) {
@@ -22,32 +20,52 @@ function Board() {
         }
     }
 
-    const calculateValues = () => {
+    const calculateBoardValues = () => {
         for (let i = 0; i < boardSize; i++) {
             if (board[i].mine === true) {
-                if (i-1 >= 0) {
-                    board[i-1].value++; 
-                }
-                if (i%rowSize+1 < rowSize) {
-                    board[i+1].value++; 
-                }
-                if (i-rowSize >= 0) {
-                    board[i-rowSize].value++; 
-                }
-                if (i+rowSize < boardSize) {
-                    board[i+rowSize].value++; 
-                }       
+                calculateSurroundingFieldsValue(i);   
             }
         }
     };
 
-    const boardSize = 9;
+    const calculateSurroundingFieldsValue = (fieldIndex) => {
+        // upper row
+        if ((fieldIndex-rowSize-1 >= 0) && (fieldIndex%rowSize-1 >= 0)) {
+            board[fieldIndex-rowSize-1].value++; 
+        }
+        if (fieldIndex-rowSize >= 0) {
+            board[fieldIndex-rowSize].value++; 
+        }
+        if ((fieldIndex-rowSize+1 >= 0) && (fieldIndex%rowSize+1 < rowSize)) {
+            board[fieldIndex-rowSize+1].value++; 
+        }
+        // row of mines
+        if (fieldIndex%rowSize-1 >= 0) {
+            board[fieldIndex-1].value++; 
+        }
+        if (fieldIndex%rowSize+1 < rowSize) {
+            board[fieldIndex+1].value++; 
+        }
+        // lower row
+        if ((fieldIndex+rowSize-1 < boardSize) && (fieldIndex%rowSize-1 >= 0)) {
+            board[fieldIndex+rowSize-1].value++; 
+        }
+        if (fieldIndex+rowSize < boardSize) {
+            board[fieldIndex+rowSize].value++; 
+        }  
+        if ((fieldIndex+rowSize+1 < boardSize) && (fieldIndex%rowSize+1 < rowSize)) {
+            board[fieldIndex+rowSize+1].value++; 
+        }      
+
+    };
+
+    const boardSize = 25;
     const rowSize = Math.sqrt(boardSize);
 
     let board = createBoard(boardSize);
-    const minesNum = 2;
+    const minesNum = 4;
     placeMines(board, minesNum);
-    calculateValues();
+    calculateBoardValues();
 
     console.log(board);
 
