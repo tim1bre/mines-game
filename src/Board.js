@@ -61,7 +61,7 @@ function Board() {
 
     };
 
-    const boardSize = 25;
+    const boardSize = 36;
     const rowSize = Math.sqrt(boardSize);
 
     let board = createBoard(boardSize);
